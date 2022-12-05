@@ -10,14 +10,14 @@ class UsersResponse {
     required this.perPage,
     required this.total,
     required this.totalPages,
-    required this.data,
+    required this.users,
   });
 
   int page;
   int perPage;
   int total;
   int totalPages;
-  List<User> data;
+  List<User> users;
 
   factory UsersResponse.fromJson(String str) =>
       UsersResponse.fromMap(json.decode(str));
@@ -29,7 +29,7 @@ class UsersResponse {
         perPage: json["per_page"],
         total: json["total"],
         totalPages: json["total_pages"],
-        data: List<User>.from(json["data"].map((x) => User.fromMap(x))),
+        users: List<User>.from(json["data"].map((x) => User.fromMap(x))),
       );
 
   Map<String, dynamic> toMap() => {
@@ -37,7 +37,7 @@ class UsersResponse {
         "per_page": perPage,
         "total": total,
         "total_pages": totalPages,
-        "data": List<dynamic>.from(data.map((x) => x.toMap())),
+        "data": List<dynamic>.from(users.map((x) => x.toMap())),
       };
 }
 
@@ -50,7 +50,7 @@ class User {
     required this.avatar,
   });
 
-  int? id;
+  int id;
   String email;
   String firstName;
   String lastName;

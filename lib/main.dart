@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:example_http/models/user_response.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -18,7 +19,8 @@ class MyApp extends StatelessWidget {
           child: ElevatedButton(
             onPressed: () {
               //_peticioHttp();
-              _peticioHttpJsonDecode();
+              //_peticioHttpJsonDecode();
+              _peticioHttpMapejada();
             },
             child: Text('Fes petició HTTP'),
           ),
@@ -43,9 +45,19 @@ _peticioHttpJsonDecode() {
   final url = Uri.https('reqres.in', 'api/users', {'page': '2'});
   http.get(url).then((res) {
     final body = jsonDecode(res.body);
-    //print(body);
+    print(body);
     print('Page: ${body['page']}');
     print('Objecte en 3er lloc: ${body['data'][2]}');
     print('ID objecte en tercer lloc: ${body['data'][2]['id']}');
   });
+}
+
+_peticioHttpMapejada() async {
+  final url = Uri.https('reqres.in', 'api/users', {'page': '2'});
+  final response = await http.get(url);
+
+  final userResponse = UsersResponse.fromJson(response.body);
+  print('Page: ${userResponse.page}');
+  print('Objecte en 3er lloc: ${userResponse.users[2]}');
+  print('ID objecte en tercer lloc: ${userResponse.users[2].id}');
 }
